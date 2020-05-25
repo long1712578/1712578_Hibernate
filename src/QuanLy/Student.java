@@ -10,9 +10,8 @@ public class Student {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Student(int sTT, String mSSV, String ten, String gioiTinh, String cMND) {
+	public Student(String mSSV, String ten, String gioiTinh, String cMND) {
 		super();
-		STT = sTT;
 		MSSV = mSSV;
 		Ten = ten;
 		GioiTinh = gioiTinh;

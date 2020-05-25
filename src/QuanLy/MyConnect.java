@@ -51,30 +51,6 @@ public class MyConnect {
 	}
 	
 	
-	public static List<Student> selectAll(String table) throws ClassNotFoundException {
-		MyConnect myconnect=new MyConnect();
-		myconnect.connect();
-		List<Student> studentList=new ArrayList<>();
-		ResultSet rs=null;
-		String sql="select * from "+table;
-		Statement st;
-		try {
-			st=connection.createStatement();
-			rs=st.executeQuery(sql);
-		}catch (SQLException e) {
-			// TODO: handle exception
-		}
-		try {
-			while(rs.next()) {
-				Student std=new Student(rs.getInt(1),rs.getString(2), rs.getString(3),rs.getString(4),rs.getString(5));
-				studentList.add(std);
-			}
-		}catch (SQLException e1) {
-			// TODO: handle exception
-		}
-		return studentList;
-	}
-	
 	//insert
 	public static void insert(Student st,String table) throws ClassNotFoundException {
 		
@@ -82,10 +58,10 @@ public class MyConnect {
 		PreparedStatement statement=null;
 		
 		try {
-			//Class.forName(className);
+			Class.forName(className);
 			connection=DriverManager.getConnection(url, user, pass);
 			
-			String sql = "insert into "+table+"(MSSV,HoTen,GioiTinh,CMND) values(?,?,?,?,?)";
+			String sql = "insert into "+table+"(MSSV,HoTen,GioiTinh,CMND) values(?,?,?,?)";
 			statement= (PreparedStatement) connection.prepareCall(sql);
 			statement.setString(1, st.getMSSV());
 			statement.setString(2, st.getTen());
@@ -116,15 +92,16 @@ public class MyConnect {
 	}
 	
 
-public static void delete(String MSSV,String table) {
+public static void delete(String MSSV,String table) throws ClassNotFoundException {
 	
 	Connection connection=null;
 	PreparedStatement statement=null;
 	
 	try {
+		Class.forName(className);
 		connection=DriverManager.getConnection(url, user, pass);
 		
-		String sql = "delete from "+table+ "where MSSV=?";
+		String sql = "delete from "+table+ " where MSSV=?";
 		statement= (PreparedStatement) connection.prepareCall(sql);
 		statement.setString(1, MSSV);
 		
