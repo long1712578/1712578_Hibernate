@@ -49,5 +49,7 @@ public class Student {
 		CMND = cMND;
 	}
 	
-	
+	public void output() {
+		System.out.println("STT: "+STT +" Ten: "+ Ten);
+	}
 }

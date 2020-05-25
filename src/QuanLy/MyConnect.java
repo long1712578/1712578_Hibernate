@@ -1,55 +1,153 @@
 package QuanLy;
 
+//import java.io.FileWriter;
+//import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import com.mysql.jdbc.PreparedStatement;
 
 public class MyConnect {
-	private final String className="com.mysql.jdbc.Driver";
-	private final String url="jdbc:mysql://localhost:3306/quanlysv";
-	private final String user="root";
-	private final String pass="";
-	private final String table17hcb="17hcb";
+	private final static String className="com.mysql.jdbc.Driver";
+	private final static String url="jdbc:mysql://localhost:3306/quanlysv";
+	private final static String user="root";
+	private final static String pass="";
+	//private final static String tableName;
+	private static Connection connection;
 	
-	private Connection connection;
-	
-	private void connect() throws SQLException {
+	public void connect() {
 		try {
 			Class.forName(className);
-			connection=DriverManager.getConnection(url,user,pass);
-			System.out.println("Connect success.");
+			connection=DriverManager.getConnection(url, user, pass);
+			System.out.println("Success connect");
 		}catch (ClassNotFoundException e) {
 			// TODO: handle exception
-			e.getException();
-		}
-	}
-	private void ShowClass17HCB(ResultSet rs) {
-		try {
-			while(rs.next()) {
-				System.out.printf("%-1d %-10s %-20s %-5s %-15s \n", rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5));
-			}
-		}catch (Exception e) {
+			System.out.println("Class not found");
+		}catch (SQLException e) {
 			// TODO: handle exception
+			System.out.println("Error connect");
 		}
 	}
-	private ResultSet getData() {
+	
+	public ResultSet getData(String table) {
 		ResultSet rs=null;
-		String sqlCMD = "select * from "+table17hcb;
+		String sql="select * from "+table;
 		Statement st;
 		try {
-			st= connection.createStatement();
-			rs=st.executeQuery(sqlCMD);
-		} catch ( SQLException e) {
+			st=connection.createStatement();
+			rs=st.executeQuery(sql);
+		}catch (SQLException e) {
 			// TODO: handle exception
-			System.out.println("Select error \n"+e.toString());
+			System.out.println("Select Error \n"+e.toString());
 		}
 		return rs;
 	}
-	public static void main(String[] agrs) throws SQLException {
+	
+	
+	public static List<Student> selectAll(String table) throws ClassNotFoundException {
 		MyConnect myconnect=new MyConnect();
 		myconnect.connect();
-		myconnect.ShowClass17HCB(myconnect.getData());
+		List<Student> studentList=new ArrayList<>();
+		ResultSet rs=null;
+		String sql="select * from "+table;
+		Statement st;
+		try {
+			st=connection.createStatement();
+			rs=st.executeQuery(sql);
+		}catch (SQLException e) {
+			// TODO: handle exception
+		}
+		try {
+			while(rs.next()) {
+				Student std=new Student(rs.getInt(1),rs.getString(2), rs.getString(3),rs.getString(4),rs.getString(5));
+				studentList.add(std);
+			}
+		}catch (SQLException e1) {
+			// TODO: handle exception
+		}
+		return studentList;
 	}
+	
+	//insert
+	public static void insert(Student st,String table) throws ClassNotFoundException {
+		
+		Connection connection=null;
+		PreparedStatement statement=null;
+		
+		try {
+			//Class.forName(className);
+			connection=DriverManager.getConnection(url, user, pass);
+			
+			String sql = "insert into "+table+"(MSSV,HoTen,GioiTinh,CMND) values(?,?,?,?,?)";
+			statement= (PreparedStatement) connection.prepareCall(sql);
+			statement.setString(1, st.getMSSV());
+			statement.setString(2, st.getTen());
+			statement.setString(3, st.getGioiTinh());
+			statement.setString(4, st.getCMND());
+			
+			statement.execute();
+		}catch (SQLException e) {
+			// TODO: handle exception
+			Logger.getLogger(MyConnect.class.getName()).log(Level.SEVERE, null, e);
+			}finally {
+				if(statement!=null) {
+					try {
+						statement.close();
+					}catch (SQLException e) {
+						// TODO: handle exception
+						Logger.getLogger(MyConnect.class.getName()).log(Level.SEVERE, null, e);
+					}
+				}
+				if(connection!=null) {
+					try {
+						connection.close();
+					}catch(SQLException e) {
+						Logger.getLogger(MyConnect.class.getName()).log(Level.SEVERE, null, e);
+					}
+				}
+			}
+	}
+	
+
+public static void delete(String MSSV,String table) {
+	
+	Connection connection=null;
+	PreparedStatement statement=null;
+	
+	try {
+		connection=DriverManager.getConnection(url, user, pass);
+		
+		String sql = "delete from "+table+ "where MSSV=?";
+		statement= (PreparedStatement) connection.prepareCall(sql);
+		statement.setString(1, MSSV);
+		
+		statement.execute();
+	}catch (SQLException e) {
+		// TODO: handle exception
+		Logger.getLogger(MyConnect.class.getName()).log(Level.SEVERE, null, e);
+		}finally {
+			if(statement!=null) {
+				try {
+					statement.close();
+				}catch (SQLException e) {
+					// TODO: handle exception
+					Logger.getLogger(MyConnect.class.getName()).log(Level.SEVERE, null, e);
+				}
+			}
+			if(connection!=null) {
+				try {
+					connection.close();
+				}catch(SQLException e) {
+					Logger.getLogger(MyConnect.class.getName()).log(Level.SEVERE, null, e);
+				}
+			}
+		}
+}
 }
