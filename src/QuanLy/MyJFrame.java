@@ -1,18 +1,25 @@
 package QuanLy;
 
 import java.awt.*;
+
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
-
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.*;
 import java.sql.*;
+import java.util.*;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 
 public class MyJFrame extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JTextField txtTen;
 	private JTextField txtMSSV;
 	private JTextField txtGioiTinh;
@@ -124,11 +131,28 @@ public class MyJFrame extends JFrame {
 		btnXoa.setFont(new Font("Times New Roman", Font.BOLD, 14));
 		btnXoa.setBounds(488, 107, 89, 23);
 		panel.add(btnXoa);
-		
 		JButton btnImport = new JButton("IMPORT");
 		btnImport.setFont(new Font("Times New Roman", Font.BOLD, 14));
 		btnImport.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				DefaultTableModel tableModel=new DefaultTableModel();
+				tableModel=(DefaultTableModel) table.getModel();
+				List<Student>listST=new ArrayList<>();
+				String file="data\\17HCB.csv";
+				try {
+					listST=readFileCSV(file);
+					tableModel.setRowCount(0);
+					for(Student student : listST) {
+						tableModel.addRow(new Object[] {
+								student.getSTT(),student.getMSSV(),student.getTen(),
+								student.getGioiTinh(), student.getCMND()
+						});
+					}
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				JOptionPane.showMessageDialog(rootPane,"import success.");
 			}
 		});
 		btnImport.setBounds(488, 148, 89, 23);
@@ -199,8 +223,28 @@ public class MyJFrame extends JFrame {
 		btnThem.setBounds(488, 67, 89, 23);
 		panel.add(btnThem);
 		
+		JButton btnTKB = new JButton("Xem TKB");
+		btnTKB.setFont(new Font("Times New Roman", Font.BOLD, 13));
+		btnTKB.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TKBJFrame tkb=new TKBJFrame();
+				tkb.setVisible(true);
+			}
+		});
+		btnTKB.setBounds(488, 22, 89, 23);
+		panel.add(btnTKB);
+		
 		//Create table
 		table = new JTable();
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null, null, null, null},
+			},
+			new String[] {
+				"STT", "MSSV", "Ho ten", "Gioi Tinh", "CMND"
+			}
+		));
+		table.setBackground(new Color(255, 255, 255));
 		table.setBounds(20, 236, 647, 177);
 		getContentPane().add(table);
 	}
@@ -231,4 +275,20 @@ public class MyJFrame extends JFrame {
 		}
 		table.setModel(model);
 	}
+	private List<Student> readFileCSV(String CSVFile) throws FileNotFoundException, IOException{
+		List<Student> listStudent=new ArrayList<Student>();
+		File file = new File(CSVFile);
+		String line=" ";
+		try(BufferedReader br=new BufferedReader(new FileReader(file))){
+			line=br.readLine();
+			while((line=br.readLine())!=null && !line.isEmpty()) {
+				
+				String fields[]=line.split(",");
+				Student st=new Student(Integer.parseInt(fields[0]),fields[1],fields[2],fields[3],fields[4]);
+				listStudent.add(st);
+			}
+		}
+		return listStudent;
+	}
 }
+

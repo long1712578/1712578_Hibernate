@@ -17,6 +17,14 @@ public class Student {
 		GioiTinh = gioiTinh;
 		CMND = cMND;
 	}
+	public Student(int stt,String mSSV, String ten, String gioiTinh, String cMND) {
+		super();
+		STT=stt;
+		MSSV = mSSV;
+		Ten = ten;
+		GioiTinh = gioiTinh;
+		CMND = cMND;
+	}
 	public int getSTT() {
 		return STT;
 	}
