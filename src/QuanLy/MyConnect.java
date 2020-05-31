@@ -125,4 +125,79 @@ public static void delete(String MSSV,String table) throws ClassNotFoundExceptio
 			}
 		}
 }
+
+public static void Update(float gk,float ck, float khac,float tong,String mssv,String table) throws ClassNotFoundException {
+	
+	Connection connection=null;
+	PreparedStatement statement=null;
+	
+	try {
+		Class.forName(className);
+		connection=DriverManager.getConnection(url, user, pass);
+		
+		String sql = "update "+table+ " set DiemGK=?,DiemCK=?,DiemKhac=?,DiemTong=? where MSSV=?";
+		statement= (PreparedStatement) connection.prepareCall(sql);
+		statement.setFloat(1, gk);
+		statement.setFloat(2, ck);
+		statement.setFloat(3, khac);
+		statement.setFloat(4, tong);
+		statement.setString(5, mssv);
+		statement.execute();
+	}catch (SQLException e) {
+		// TODO: handle exception
+		System.out.println("ERRoR SqL");
+		Logger.getLogger(MyConnect.class.getName()).log(Level.SEVERE, null, e);
+		}finally {
+			if(statement!=null) {
+				try {
+					statement.close();
+				}catch (SQLException e) {
+					// TODO: handle exception
+					Logger.getLogger(MyConnect.class.getName()).log(Level.SEVERE, null, e);
+				}
+			}
+			if(connection!=null) {
+				try {
+					connection.close();
+				}catch(SQLException e) {
+					Logger.getLogger(MyConnect.class.getName()).log(Level.SEVERE, null, e);
+				}
+			}
+		}
+}
+	public static void updataPass(String tk,String newPass) throws ClassNotFoundException {
+		Connection connection=null;
+		PreparedStatement statement=null;
+		
+		try {
+			Class.forName(className);
+			connection=DriverManager.getConnection(url, user, pass);
+			
+			String sql = "update login_student set pass=?  where username=?";
+			statement= (PreparedStatement) connection.prepareCall(sql);
+			statement.setString(1, newPass);
+			statement.setString(2, tk);
+			statement.execute();
+		}catch (SQLException e) {
+			// TODO: handle exception
+			System.out.println("ERRoR SqL");
+			Logger.getLogger(MyConnect.class.getName()).log(Level.SEVERE, null, e);
+			}finally {
+				if(statement!=null) {
+					try {
+						statement.close();
+					}catch (SQLException e) {
+						// TODO: handle exception
+						Logger.getLogger(MyConnect.class.getName()).log(Level.SEVERE, null, e);
+					}
+				}
+				if(connection!=null) {
+					try {
+						connection.close();
+					}catch(SQLException e) {
+						Logger.getLogger(MyConnect.class.getName()).log(Level.SEVERE, null, e);
+					}
+				}
+			}
+	}
 }

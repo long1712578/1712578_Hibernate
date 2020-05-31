@@ -206,6 +206,12 @@ public class TKBJFrame extends JFrame {
 		panel.add(btnSua);
 		
 		JButton btnBangDiem = new JButton("Xem điểm");
+		btnBangDiem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TranscriptJFrame TranJFrame=new TranscriptJFrame();
+				TranJFrame.setVisible(true);
+			}
+		});
 		btnBangDiem.setFont(new Font("Times New Roman", Font.BOLD, 13));
 		btnBangDiem.setBounds(571, 183, 89, 23);
 		panel.add(btnBangDiem);

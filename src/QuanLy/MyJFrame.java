@@ -86,8 +86,9 @@ public class MyJFrame extends JFrame {
 		panel.add(txtCMND);
 		
 		JComboBox cbClass = new JComboBox();
+		cbClass.setFont(new Font("Times New Roman", Font.BOLD, 12));
 		cbClass.setModel(new DefaultComboBoxModel(new String[] {"17hcb", "18hcb"}));
-		cbClass.setBounds(20, 22, 66, 22);
+		cbClass.setBounds(272, 22, 75, 22);
 		panel.add(cbClass);
 		
 		JLabel lblHoTen = new JLabel("H\u1ECD t\u00EAn");
@@ -233,6 +234,16 @@ public class MyJFrame extends JFrame {
 		});
 		btnTKB.setBounds(488, 22, 89, 23);
 		panel.add(btnTKB);
+		
+		JButton btnNewButton = new JButton("\u0110\u1ED5i pass");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		btnNewButton.setFont(new Font("Times New Roman", Font.ITALIC, 11));
+		btnNewButton.setBounds(20, 22, 89, 23);
+		panel.add(btnNewButton);
 		
 		//Create table
 		table = new JTable();
