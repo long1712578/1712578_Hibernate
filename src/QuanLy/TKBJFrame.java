@@ -22,6 +22,8 @@ import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -186,7 +188,7 @@ public class TKBJFrame extends JFrame {
 			}
 		});
 		btnXoa.setFont(new Font("Times New Roman", Font.BOLD, 13));
-		btnXoa.setBounds(571, 86, 89, 23);
+		btnXoa.setBounds(435, 183, 89, 23);
 		panel.add(btnXoa);
 		
 		JButton btnXemDs = new JButton("Xem DS");
@@ -194,15 +196,58 @@ public class TKBJFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String table1=comboBox.getSelectedItem().toString();
 				loadData(table1);
+				if(table1.equals("tkb_17hcb") || table1.equals("tkb_18hcb")) {
+					tableTKB.addMouseListener(new MouseListener() {
+						@Override
+						public void mouseReleased(MouseEvent e) {
+							// TODO Auto-generated method stub
+							
+						}
+						
+						@Override
+						public void mousePressed(MouseEvent e) {
+							// TODO Auto-generated method stub
+							int row=tableTKB.getSelectedRow();
+							if(row<0) {
+								JOptionPane.showMessageDialog(null, "Chua chon doi tuong can xoa",
+										"Error Update",JOptionPane.ERROR_MESSAGE);
+								return;
+							}else {
+								String MaLop=(String)tableTKB.getValueAt(row, 1);
+								DateJFrame jframe=new DateJFrame(MaLop);
+								jframe.setVisible(true);
+							}
+							
+						}
+						
+						@Override
+						public void mouseExited(MouseEvent e) {
+							// TODO Auto-generated method stub
+							
+						}
+						
+						@Override
+						public void mouseEntered(MouseEvent e) {
+							// TODO Auto-generated method stub
+							
+						}
+						
+						@Override
+						public void mouseClicked(MouseEvent e) {
+							// TODO Auto-generated method stub
+							
+						}
+					});
+				}
 			}
 		});
 		btnXemDs.setFont(new Font("Times New Roman", Font.BOLD, 13));
-		btnXemDs.setBounds(435, 183, 89, 23);
+		btnXemDs.setBounds(571, 86, 89, 23);
 		panel.add(btnXemDs);
 		
 		JButton btnSua = new JButton("Sửa");
 		btnSua.setFont(new Font("Times New Roman", Font.BOLD, 13));
-		btnSua.setBounds(500, 131, 89, 23);
+		btnSua.setBounds(435, 131, 89, 23);
 		panel.add(btnSua);
 		
 		JButton btnBangDiem = new JButton("Xem điểm");
@@ -213,8 +258,17 @@ public class TKBJFrame extends JFrame {
 			}
 		});
 		btnBangDiem.setFont(new Font("Times New Roman", Font.BOLD, 13));
-		btnBangDiem.setBounds(571, 183, 89, 23);
+		btnBangDiem.setBounds(571, 131, 89, 23);
 		panel.add(btnBangDiem);
+		
+		JButton btnPhucKhao = new JButton("Tạo phúc khảo");
+		btnPhucKhao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnPhucKhao.setFont(new Font("Times New Roman", Font.BOLD, 11));
+		btnPhucKhao.setBounds(571, 183, 89, 23);
+		panel.add(btnPhucKhao);
 		
 		tableTKB = new JTable();
 		tableTKB.setBounds(10, 275, 709, 157);

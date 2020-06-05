@@ -89,6 +89,46 @@ public class MyConnect {
 			}
 	}
 	
+	//insert date_phuc khao
+public static void insertDate(String MaLop,Date NgayBD,Date NgayKT) throws ClassNotFoundException {
+		
+		Connection connection=null;
+		PreparedStatement statement=null;
+		
+		try {
+			Class.forName(className);
+			connection=DriverManager.getConnection(url, user, pass);
+			String ngay1=NgayBD.getNgay()+"-"+NgayBD.getThang()+"-"+NgayBD.getNam();
+			String ngay2=NgayKT.getNgay()+"-"+NgayKT.getThang()+"-"+NgayKT.getNam();
+			String sql = "insert into ngay_phuckhao(MaMon,NgayBD,NgayKT) values(?,?,?)";
+			statement= (PreparedStatement) connection.prepareCall(sql);
+			statement.setString(1, MaLop);
+			statement.setString(2, ngay1);
+			statement.setString(3, ngay2);
+			
+			statement.execute();
+		}catch (SQLException e) {
+			// TODO: handle exception
+			Logger.getLogger(MyConnect.class.getName()).log(Level.SEVERE, null, e);
+			}finally {
+				if(statement!=null) {
+					try {
+						statement.close();
+					}catch (SQLException e) {
+						// TODO: handle exception
+						Logger.getLogger(MyConnect.class.getName()).log(Level.SEVERE, null, e);
+					}
+				}
+				if(connection!=null) {
+					try {
+						connection.close();
+					}catch(SQLException e) {
+						Logger.getLogger(MyConnect.class.getName()).log(Level.SEVERE, null, e);
+					}
+				}
+			}
+	}
+	
 
 public static void delete(String MSSV,String table) throws ClassNotFoundException {
 	

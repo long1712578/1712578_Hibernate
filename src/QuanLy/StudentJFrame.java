@@ -145,6 +145,27 @@ public class StudentJFrame extends JFrame {
 					System.out.println("Loi nay");
 					e1.printStackTrace();
 				}
+				
+				String table2="diem_17hcb_ctt011";
+				ResultSet rs2=myconnect.getData(table2);
+				try {
+					while(rs2.next()) {
+						if(username.equals(rs2.getString("MSSV"))) {
+							ResultSet rs22=myconnect.getData("tkb_17hcb");
+							while(rs22.next()) {
+								if(rs22.getString("MaMon").equals("CTT011")) {
+									MyStudent myST=new MyStudent(rs22.getString(2),rs22.getString(3),rs22.getString(4),rs2.getFloat(4),
+											rs2.getFloat(5),rs2.getFloat(6),rs2.getFloat(7));
+									listST.add(myST);
+								}
+							}
+						}
+					}
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					System.out.println("Loi nay");
+					e1.printStackTrace();
+				}
 				tableModel.setRowCount(1);
 					for(MyStudent student : listST) {
 						tableModel.addRow(new Object[] {
