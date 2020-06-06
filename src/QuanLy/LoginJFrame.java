@@ -19,6 +19,7 @@ import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
+import javax.swing.border.LineBorder;
 
 public class LoginJFrame extends JFrame {
 
@@ -51,12 +52,14 @@ public class LoginJFrame extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 601, 386);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(211, 211, 211));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBackground(Color.CYAN);
+		panel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		panel.setBackground(new Color(176, 224, 230));
 		panel.setBounds(0, 0, 585, 100);
 		contentPane.add(panel);
 		panel.setLayout(null);
@@ -64,7 +67,7 @@ public class LoginJFrame extends JFrame {
 		JLabel lblNewLabel = new JLabel("\u0110\u0102NG NH\u1EACP");
 		lblNewLabel.setForeground(Color.RED);
 		lblNewLabel.setBackground(new Color(0, 0, 255));
-		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 15));
+		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 16));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(115, 29, 350, 39);
 		panel.add(lblNewLabel);
@@ -86,6 +89,7 @@ public class LoginJFrame extends JFrame {
 		contentPane.add(lblNewLabel_1_1);
 		
 		txtUser = new JTextField();
+		txtUser.setFont(new Font("Times New Roman", Font.BOLD, 11));
 		txtUser.setBounds(215, 152, 283, 28);
 		contentPane.add(txtUser);
 		txtUser.setColumns(10);
@@ -141,6 +145,7 @@ public class LoginJFrame extends JFrame {
 		contentPane.add(btnDangNhap);
 		
 		txtPass = new JPasswordField();
+		txtPass.setFont(new Font("Times New Roman", Font.BOLD, 11));
 		txtPass.setBounds(215, 212, 283, 28);
 		contentPane.add(txtPass);
 	}

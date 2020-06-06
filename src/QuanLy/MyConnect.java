@@ -128,6 +128,48 @@ public static void insertDate(String MaLop,Date NgayBD,Date NgayKT) throws Class
 				}
 			}
 	}
+
+//insert thong tin phuc khao cua sinh vien
+public static void insertInformation(String mssv,String ten,String maMon,String cotDiem,Float diem,String liDo) throws ClassNotFoundException {
+	
+	Connection connection=null;
+	PreparedStatement statement=null;
+	
+	try {
+		Class.forName(className);
+		connection=DriverManager.getConnection(url, user, pass);
+		
+		String sql = "insert into thongtin_phuckhao(MSSV,HoTen,MaMon,CotDiem,DiemMuon,LiDo) values(?,?,?,?,?,?)";
+		statement= (PreparedStatement) connection.prepareCall(sql);
+		statement.setString(1, mssv);
+		statement.setString(2, ten);
+		statement.setString(3, maMon);
+		statement.setString(4, cotDiem);
+		statement.setFloat(5, diem);
+		statement.setString(6, liDo);
+		
+		statement.execute();
+	}catch (SQLException e) {
+		// TODO: handle exception
+		Logger.getLogger(MyConnect.class.getName()).log(Level.SEVERE, null, e);
+		}finally {
+			if(statement!=null) {
+				try {
+					statement.close();
+				}catch (SQLException e) {
+					// TODO: handle exception
+					Logger.getLogger(MyConnect.class.getName()).log(Level.SEVERE, null, e);
+				}
+			}
+			if(connection!=null) {
+				try {
+					connection.close();
+				}catch(SQLException e) {
+					Logger.getLogger(MyConnect.class.getName()).log(Level.SEVERE, null, e);
+				}
+			}
+		}
+}
 	
 
 public static void delete(String MSSV,String table) throws ClassNotFoundException {

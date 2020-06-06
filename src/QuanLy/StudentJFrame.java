@@ -10,14 +10,18 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.HeadlessException;
 import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JTable;
@@ -181,6 +185,88 @@ public class StudentJFrame extends JFrame {
 		panel_1.add(btnXem);
 		
 		JButton btnPhucKhao = new JButton("Phúc khảo");
+		btnPhucKhao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Phuc khao
+				table.addMouseListener(new MouseListener() {
+					
+					@Override
+					public void mouseReleased(MouseEvent e) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+					@Override
+					public void mousePressed(MouseEvent e) {
+						// TODO Auto-generated method stub
+						int row=table.getSelectedRow();
+						if(row<0) {
+							JOptionPane.showMessageDialog(null, "Chua chon doi tuong can xoa",
+									"Error",JOptionPane.ERROR_MESSAGE);
+							return;
+						}else {
+							String MaMon=(String)table.getValueAt(row, 0);
+							//Kiem tra mon nay co mo phuc khao chua
+							String tableTime="ngay_phuckhao";
+							ResultSet rs=myconnect.getData(tableTime);
+							try {
+								while(rs.next()) {
+									if(rs.getString("MaMon").equals(MaMon)) {
+										//Kiem tra ngay hom nay co nam trong thoi gian phuc khao khong
+										 Calendar c = Calendar.getInstance();
+										 String year=String.valueOf(c.get(Calendar.YEAR));
+										 String month=String.valueOf(c.get(Calendar.MONTH)+1);
+										 String day=String.valueOf(c.get(Calendar.DAY_OF_MONTH));
+										 Date dateNow= new Date(day,month,year);
+							
+										String ngayBD=rs.getString("NgayBD");
+										Date dateStart=StringToDate(ngayBD);
+										String ngayKT=rs.getString("NgayKT");
+										Date dateEnd=StringToDate(ngayKT);
+										if(isComporeDate(dateStart, dateNow) && isComporeDate(dateNow, dateEnd) ) {
+											//man hinh phuc khao
+											//System.out.println("Chuyen man hinh phuc khao");
+											RecheckJFrame jframe=new RecheckJFrame(username,MaMon);
+											jframe.setVisible(true);
+										}else {
+											JOptionPane.showMessageDialog(rootPane,"Thoi gian phuc khao da ket thuc.");
+										}
+										
+										 
+									}else {
+										//JOptionPane.showMessageDialog(rootPane,"Giao vu chua mo phuc khao.");
+									}
+								}
+							} catch (HeadlessException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							} catch (SQLException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+						}
+					}
+					
+					@Override
+					public void mouseExited(MouseEvent e) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+					@Override
+					public void mouseEntered(MouseEvent e) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						// TODO Auto-generated method stub
+						
+					}
+				});
+			}
+		});
 		btnPhucKhao.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 13));
 		btnPhucKhao.setBounds(444, 11, 106, 39);
 		panel_1.add(btnPhucKhao);
@@ -197,5 +283,28 @@ public class StudentJFrame extends JFrame {
 		));
 		table.setBounds(30, 155, 691, 204);
 		contentPane.add(table);
+	}
+	private Date StringToDate(String date) {
+		if(date.equals("")) {
+			return null;
+		}else {
+			String[] out=date.split("-");
+			Date d=new Date(out[0],out[1],out[2]);
+			return d;
+		}
+	}
+	private boolean isComporeDate(Date date1,Date date2) {
+		if(Integer.parseInt(date1.getNam())>Integer.parseInt(date2.getNam())) {
+			   return false;
+		   }else if(Integer.parseInt(date1.getNam())==Integer.parseInt(date2.getNam())) {
+			   if(Integer.parseInt(date1.getThang())>Integer.parseInt(date2.getThang())) {
+				   return false;
+			   }else if(Integer.parseInt(date1.getThang())>Integer.parseInt(date2.getThang())) {
+				   if(Integer.parseInt(date1.getNgay())>Integer.parseInt(date2.getNgay())) {
+					   return false;
+				   }
+			   }
+		   }
+		   return true;
 	}
 }

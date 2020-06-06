@@ -32,6 +32,9 @@ public class Date {
 	public void setNam(String nam) {
 		this.nam = nam;
 	}
+	public void output() {
+		System.out.println("Ngay: "+ngay+" Thang: "+thang+" nam: "+nam );
+	}
 	
 	
 
