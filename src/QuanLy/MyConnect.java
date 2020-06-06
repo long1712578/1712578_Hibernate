@@ -282,4 +282,40 @@ public static void Update(float gk,float ck, float khac,float tong,String mssv,S
 				}
 			}
 	}
+	public static void updataStatus1(String mssv,String maMon,String cotDiem) throws ClassNotFoundException {
+		Connection connection=null;
+		PreparedStatement statement=null;
+		
+		try {
+			Class.forName(className);
+			connection=DriverManager.getConnection(url, user, pass);
+			
+			String sql = "update thongtin_phuckhao set TrangThai=1 where MSSV=? and MaMon=? and CotDiem=?";
+			statement= (PreparedStatement) connection.prepareCall(sql);
+			statement.setString(1, mssv);
+			statement.setString(2, maMon);
+			statement.setString(3, cotDiem);
+			statement.execute();
+		}catch (SQLException e) {
+			// TODO: handle exception
+			System.out.println("ERRoR SqL");
+			Logger.getLogger(MyConnect.class.getName()).log(Level.SEVERE, null, e);
+			}finally {
+				if(statement!=null) {
+					try {
+						statement.close();
+					}catch (SQLException e) {
+						// TODO: handle exception
+						Logger.getLogger(MyConnect.class.getName()).log(Level.SEVERE, null, e);
+					}
+				}
+				if(connection!=null) {
+					try {
+						connection.close();
+					}catch(SQLException e) {
+						Logger.getLogger(MyConnect.class.getName()).log(Level.SEVERE, null, e);
+					}
+				}
+			}
+	}
 }

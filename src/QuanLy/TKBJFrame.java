@@ -191,12 +191,15 @@ public class TKBJFrame extends JFrame {
 		btnXoa.setBounds(435, 183, 89, 23);
 		panel.add(btnXoa);
 		
+		JButton btnPhucKhao = new JButton("Tạo phúc khảo");
+		
 		JButton btnXemDs = new JButton("Xem DS");
 		btnXemDs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String table1=comboBox.getSelectedItem().toString();
 				loadData(table1);
 				if(table1.equals("tkb_17hcb") || table1.equals("tkb_18hcb")) {
+					
 					tableTKB.addMouseListener(new MouseListener() {
 						@Override
 						public void mouseReleased(MouseEvent e) {
@@ -207,16 +210,24 @@ public class TKBJFrame extends JFrame {
 						@Override
 						public void mousePressed(MouseEvent e) {
 							// TODO Auto-generated method stub
-							int row=tableTKB.getSelectedRow();
-							if(row<0) {
-								JOptionPane.showMessageDialog(null, "Chua chon doi tuong can xoa",
-										"Error Update",JOptionPane.ERROR_MESSAGE);
-								return;
-							}else {
-								String MaLop=(String)tableTKB.getValueAt(row, 1);
-								DateJFrame jframe=new DateJFrame(MaLop);
-								jframe.setVisible(true);
-							}
+							btnPhucKhao.addActionListener(new ActionListener() {
+								public void actionPerformed(ActionEvent e) {
+									int row=tableTKB.getSelectedRow();
+									if(row<0) {
+										JOptionPane.showMessageDialog(null, "Chua chon doi tuong can xoa",
+												"Error Update",JOptionPane.ERROR_MESSAGE);
+										return;
+									}else {
+										String MaLop=(String)tableTKB.getValueAt(row, 1);
+										DateJFrame jframe=new DateJFrame(MaLop);
+										jframe.setVisible(true);
+									}
+								}
+							});
+							btnPhucKhao.setFont(new Font("Times New Roman", Font.BOLD, 11));
+							btnPhucKhao.setBounds(571, 183, 89, 23);
+							panel.add(btnPhucKhao);
+							
 							
 						}
 						
@@ -261,14 +272,6 @@ public class TKBJFrame extends JFrame {
 		btnBangDiem.setBounds(571, 131, 89, 23);
 		panel.add(btnBangDiem);
 		
-		JButton btnPhucKhao = new JButton("Tạo phúc khảo");
-		btnPhucKhao.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnPhucKhao.setFont(new Font("Times New Roman", Font.BOLD, 11));
-		btnPhucKhao.setBounds(571, 183, 89, 23);
-		panel.add(btnPhucKhao);
 		
 		tableTKB = new JTable();
 		tableTKB.setBounds(10, 275, 709, 157);

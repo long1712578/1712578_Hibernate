@@ -130,7 +130,7 @@ public class MyJFrame extends JFrame {
 			}
 		});
 		btnXoa.setFont(new Font("Times New Roman", Font.BOLD, 14));
-		btnXoa.setBounds(488, 107, 89, 23);
+		btnXoa.setBounds(558, 166, 89, 23);
 		panel.add(btnXoa);
 		JButton btnImport = new JButton("IMPORT");
 		btnImport.setFont(new Font("Times New Roman", Font.BOLD, 14));
@@ -156,7 +156,7 @@ public class MyJFrame extends JFrame {
 				JOptionPane.showMessageDialog(rootPane,"import success.");
 			}
 		});
-		btnImport.setBounds(488, 148, 89, 23);
+		btnImport.setBounds(558, 21, 89, 23);
 		panel.add(btnImport);
 		
 		JButton btnXem = new JButton("Xem DS");
@@ -199,7 +199,7 @@ public class MyJFrame extends JFrame {
 			}
 		});
 		btnXem.setFont(new Font("Times New Roman", Font.BOLD, 14));
-		btnXem.setBounds(488, 185, 89, 23);
+		btnXem.setBounds(421, 166, 89, 23);
 		panel.add(btnXem);
 		
 		JButton btnThem = new JButton("th\u00EAm");
@@ -221,7 +221,7 @@ public class MyJFrame extends JFrame {
 			}
 		});
 		btnThem.setFont(new Font("Times New Roman", Font.BOLD, 13));
-		btnThem.setBounds(488, 67, 89, 23);
+		btnThem.setBounds(558, 121, 89, 23);
 		panel.add(btnThem);
 		
 		JButton btnTKB = new JButton("Xem TKB");
@@ -232,7 +232,7 @@ public class MyJFrame extends JFrame {
 				tkb.setVisible(true);
 			}
 		});
-		btnTKB.setBounds(488, 22, 89, 23);
+		btnTKB.setBounds(421, 121, 89, 23);
 		panel.add(btnTKB);
 		
 		JButton btnNewButton = new JButton("\u0110\u1ED5i pass");
@@ -244,6 +244,11 @@ public class MyJFrame extends JFrame {
 		btnNewButton.setFont(new Font("Times New Roman", Font.ITALIC, 11));
 		btnNewButton.setBounds(20, 22, 89, 23);
 		panel.add(btnNewButton);
+		
+		JButton btnPhucKhao = new JButton("DS ph\u00FAc kh\u1EA3o");
+		btnPhucKhao.setFont(new Font("Times New Roman", Font.BOLD, 13));
+		btnPhucKhao.setBounds(421, 71, 89, 23);
+		panel.add(btnPhucKhao);
 		
 		//Create table
 		table = new JTable();
