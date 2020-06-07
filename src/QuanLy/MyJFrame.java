@@ -246,6 +246,12 @@ public class MyJFrame extends JFrame {
 		panel.add(btnNewButton);
 		
 		JButton btnPhucKhao = new JButton("DS ph\u00FAc kh\u1EA3o");
+		btnPhucKhao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				InformationReCheckJFrame jframe=new InformationReCheckJFrame();
+				jframe.setVisible(true);
+			}
+		});
 		btnPhucKhao.setFont(new Font("Times New Roman", Font.BOLD, 13));
 		btnPhucKhao.setBounds(421, 71, 89, 23);
 		panel.add(btnPhucKhao);

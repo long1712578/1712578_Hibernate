@@ -318,4 +318,97 @@ public static void Update(float gk,float ck, float khac,float tong,String mssv,S
 				}
 			}
 	}
+	
+	public static void updataStatus2(String mssv,String maMon,String cotDiem) throws ClassNotFoundException {
+		Connection connection=null;
+		PreparedStatement statement=null;
+		
+		try {
+			Class.forName(className);
+			connection=DriverManager.getConnection(url, user, pass);
+			
+			String sql = "update thongtin_phuckhao set TrangThai=2 where MSSV=? and MaMon=? and CotDiem=?";
+			statement= (PreparedStatement) connection.prepareCall(sql);
+			statement.setString(1, mssv);
+			statement.setString(2, maMon);
+			statement.setString(3, cotDiem);
+			statement.execute();
+		}catch (SQLException e) {
+			// TODO: handle exception
+			System.out.println("ERRoR SqL");
+			Logger.getLogger(MyConnect.class.getName()).log(Level.SEVERE, null, e);
+			}finally {
+				if(statement!=null) {
+					try {
+						statement.close();
+					}catch (SQLException e) {
+						// TODO: handle exception
+						Logger.getLogger(MyConnect.class.getName()).log(Level.SEVERE, null, e);
+					}
+				}
+				if(connection!=null) {
+					try {
+						connection.close();
+					}catch(SQLException e) {
+						Logger.getLogger(MyConnect.class.getName()).log(Level.SEVERE, null, e);
+					}
+				}
+			}
+	}
+	public static void updataPoint(String mssv,String maMon,String cotDiem,String diem) throws ClassNotFoundException {
+		Connection connection=null;
+		PreparedStatement statement=null;
+		Float diemMuon=Float.parseFloat(diem);
+		try {
+			Class.forName(className);
+			connection=DriverManager.getConnection(url, user, pass);
+			//Bang diem_18hcb_ctt001
+			if(maMon.equals("CTT001")) {
+				String sql = "update diem_18hcb_ctt001 set "+ cotDiem +" =? where MSSV=?";
+				statement= (PreparedStatement) connection.prepareCall(sql);
+				statement.setFloat(1, diemMuon);
+				statement.setString(2, mssv);
+				statement.execute();
+			}else if(maMon.equals("CTT002")) {
+				String sql = "update diem_18hcb_ctt002 set "+ cotDiem +" =? where MSSV=?";
+				statement= (PreparedStatement) connection.prepareCall(sql);
+				statement.setFloat(1, diemMuon);
+				statement.setString(2, mssv);
+				statement.execute();
+			}else if(maMon.equals("CTT011")) {
+				String sql = "update diem_17hcb_ctt011 set "+ cotDiem +" =? where MSSV=?";
+				statement= (PreparedStatement) connection.prepareCall(sql);
+				statement.setFloat(1, diemMuon);
+				statement.setString(2, mssv);
+				statement.execute();
+			}else {
+				String sql = "update diem_17hcb_ctt012 set "+ cotDiem +" =? where MSSV=?";
+				statement= (PreparedStatement) connection.prepareCall(sql);
+				statement.setFloat(1, diemMuon);
+				statement.setString(2, mssv);
+				statement.execute();
+			}
+			
+		}catch (SQLException e) {
+			// TODO: handle exception
+			System.out.println("ERRoR SqL");
+			Logger.getLogger(MyConnect.class.getName()).log(Level.SEVERE, null, e);
+			}finally {
+				if(statement!=null) {
+					try {
+						statement.close();
+					}catch (SQLException e) {
+						// TODO: handle exception
+						Logger.getLogger(MyConnect.class.getName()).log(Level.SEVERE, null, e);
+					}
+				}
+				if(connection!=null) {
+					try {
+						connection.close();
+					}catch(SQLException e) {
+						Logger.getLogger(MyConnect.class.getName()).log(Level.SEVERE, null, e);
+					}
+				}
+			}
+	}
 }

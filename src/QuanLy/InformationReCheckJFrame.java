@@ -98,6 +98,7 @@ public class InformationReCheckJFrame extends JFrame {
 							String mssv=(String)table.getValueAt(row, 0);
 							String maMon=(String)table.getValueAt(row, 2);
 							String cotDiem=(String)table.getValueAt(row, 3);
+							//System.out.println("Cot diem: "+ cotDiem);
 							try {
 								MyConnect.updataStatus1(mssv, maMon, cotDiem);
 								loadData("thongtin_phuckhao");
@@ -136,6 +137,57 @@ public class InformationReCheckJFrame extends JFrame {
 		JButton btnCapNhat = new JButton("C\u1EADp nh\u1EADt");
 		btnCapNhat.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				table.addMouseListener(new MouseListener() {
+					
+					@Override
+					public void mouseReleased(MouseEvent e) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+					@Override
+					public void mousePressed(MouseEvent e) {
+						// TODO Auto-generated method stub
+						int row=table.getSelectedRow();
+						if(row<0) {
+							JOptionPane.showMessageDialog(null, "Chua chon doi tuong muon cap nhat",
+									"Error",JOptionPane.ERROR_MESSAGE);
+							return;
+						}else {
+							String mssv=(String)table.getValueAt(row, 0);
+							String maMon=(String)table.getValueAt(row, 2);
+							String cotDiem=(String)table.getValueAt(row, 3);
+							String diemMuon=(String)table.getValueAt(row, 4);
+							System.out.println(diemMuon);
+							try {
+								MyConnect.updataPoint(mssv, maMon, cotDiem, diemMuon);
+								MyConnect.updataStatus2(mssv, maMon, cotDiem);
+								loadData("thongtin_phuckhao");
+							} catch (ClassNotFoundException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+						}
+					}
+					
+					@Override
+					public void mouseExited(MouseEvent e) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+					@Override
+					public void mouseEntered(MouseEvent e) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						// TODO Auto-generated method stub
+						
+					}
+				});
 			}
 		});
 		btnCapNhat.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 15));
