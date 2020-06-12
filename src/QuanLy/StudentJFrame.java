@@ -11,12 +11,14 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.awt.HeadlessException;
+import java.awt.Toolkit;
 import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -55,6 +57,7 @@ public class StudentJFrame extends JFrame {
 	 */
 	private StudentJFrame() {	
 	//String username
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 	public StudentJFrame(String username) {
 		myconnect.connect();
@@ -82,6 +85,7 @@ public class StudentJFrame extends JFrame {
 		JButton btnNewButton = new JButton("\u0110\u0103ng xu\u1EA5t");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				close();
 				LoginJFrame jfame=new LoginJFrame();
 				jfame.setVisible(true);
 			}
@@ -228,6 +232,7 @@ public class StudentJFrame extends JFrame {
 											//System.out.println("Chuyen man hinh phuc khao");
 											RecheckJFrame jframe=new RecheckJFrame(username,MaMon);
 											jframe.setVisible(true);
+											
 										}else {
 											JOptionPane.showMessageDialog(rootPane,"Thoi gian phuc khao da ket thuc.");
 										}
@@ -283,6 +288,7 @@ public class StudentJFrame extends JFrame {
 		));
 		table.setBounds(30, 155, 691, 204);
 		contentPane.add(table);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 	private Date StringToDate(String date) {
 		if(date.equals("")) {
@@ -306,5 +312,9 @@ public class StudentJFrame extends JFrame {
 			   }
 		   }
 		   return true;
+	}
+	public void close() {
+		WindowEvent windowEvent= new WindowEvent(this,WindowEvent.WINDOW_CLOSING);
+		Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(windowEvent);
 	}
 }

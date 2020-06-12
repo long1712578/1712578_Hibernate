@@ -50,6 +50,7 @@ public class RecheckJFrame extends JFrame {
 	 */
 	public RecheckJFrame() {
 		//String mssv,String maMon
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 	public RecheckJFrame(String mssv,String maMon) {
 		myconnect.connect();
@@ -152,5 +153,6 @@ public class RecheckJFrame extends JFrame {
 		btnGui.setFont(new Font("Times New Roman", Font.BOLD, 15));
 		btnGui.setBounds(195, 254, 110, 36);
 		contentPane.add(btnGui);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 }

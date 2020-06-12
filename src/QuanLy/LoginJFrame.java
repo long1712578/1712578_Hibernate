@@ -10,12 +10,14 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.Color;
 import javax.swing.UIManager;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
@@ -49,7 +51,7 @@ public class LoginJFrame extends JFrame {
 	 */
 	public LoginJFrame() {
 		myconnect.connect();
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 601, 386);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(211, 211, 211));
@@ -108,7 +110,9 @@ public class LoginJFrame extends JFrame {
 				try {
 					while(rs.next()) {
 						if(username.equals(rs.getString("username")) && pass.equals(rs.getString("pass"))) {
+							close();
 							StudentJFrame jframe1=new StudentJFrame(username);
+						
 							jframe1.setVisible(true);
 							check=1;
 						}
@@ -148,5 +152,9 @@ public class LoginJFrame extends JFrame {
 		txtPass.setFont(new Font("Times New Roman", Font.BOLD, 11));
 		txtPass.setBounds(215, 212, 283, 28);
 		contentPane.add(txtPass);
+	}
+	public void close() {
+		WindowEvent windowEvent= new WindowEvent(this,WindowEvent.WINDOW_CLOSING);
+		Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(windowEvent);
 	}
 }

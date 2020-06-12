@@ -88,7 +88,50 @@ public class MyConnect {
 				}
 			}
 	}
-	
+	//insert import
+public static void insertImportPoint(String MSSV,String Ten,String diemGK,String diemCK,String diemKhac,String diemTong, String table) throws ClassNotFoundException {
+		
+		Connection connection=null;
+		PreparedStatement statement=null;
+		
+		try {
+			Class.forName(className);
+			connection=DriverManager.getConnection(url, user, pass);
+			Float diemgk=Float.valueOf(diemGK);
+			Float diemkhac=Float.valueOf(diemKhac);
+			Float diemck=Float.valueOf(diemCK);
+			Float diemtong=Float.valueOf(diemTong);
+			String sql = "insert into "+table+"(STT,MSSV,HoTen,DiemGK,DiemCK,DiemKhac,DiemTong) values(null,?,?,?,?,?,?)";
+			statement= (PreparedStatement) connection.prepareCall(sql);
+			statement.setString(1,MSSV);
+			statement.setString(2,Ten);
+			statement.setFloat(3, diemgk);
+			statement.setFloat(4, diemck);
+			statement.setFloat(5, diemkhac);
+			statement.setFloat(6, diemtong);
+			
+			statement.execute();
+		}catch (SQLException e) {
+			// TODO: handle exception
+			Logger.getLogger(MyConnect.class.getName()).log(Level.SEVERE, null, e);
+			}finally {
+				if(statement!=null) {
+					try {
+						statement.close();
+					}catch (SQLException e) {
+						// TODO: handle exception
+						Logger.getLogger(MyConnect.class.getName()).log(Level.SEVERE, null, e);
+					}
+				}
+				if(connection!=null) {
+					try {
+						connection.close();
+					}catch(SQLException e) {
+						Logger.getLogger(MyConnect.class.getName()).log(Level.SEVERE, null, e);
+					}
+				}
+			}
+	}
 	//insert date_phuc khao
 public static void insertDate(String MaLop,Date NgayBD,Date NgayKT) throws ClassNotFoundException {
 		

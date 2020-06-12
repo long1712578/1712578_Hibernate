@@ -213,6 +213,7 @@ public class TranscriptJFrame extends JFrame {
 		table = new JTable();
 		table.setBounds(10, 285, 702, 122);
 		contentPane.add(table);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 	
 	private void loadData(String table1) {

@@ -280,6 +280,7 @@ public class TKBJFrame extends JFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 274, 709, 158);
 		contentPane.add(scrollPane);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 	private void loadData(String table1) {
 		//String table1="17hcb";

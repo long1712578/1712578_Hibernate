@@ -26,6 +26,7 @@ public class MyJFrame extends JFrame {
 	private JTextField txtCMND;
 	private JTable table;
 	MyConnect myconnect=new MyConnect();
+	private JTextField txtFileName;
 
 	/**
 	 * Launch the application.
@@ -88,7 +89,7 @@ public class MyJFrame extends JFrame {
 		JComboBox cbClass = new JComboBox();
 		cbClass.setFont(new Font("Times New Roman", Font.BOLD, 12));
 		cbClass.setModel(new DefaultComboBoxModel(new String[] {"17hcb", "18hcb"}));
-		cbClass.setBounds(272, 22, 75, 22);
+		cbClass.setBounds(214, 22, 75, 22);
 		panel.add(cbClass);
 		
 		JLabel lblHoTen = new JLabel("H\u1ECD t\u00EAn");
@@ -132,32 +133,6 @@ public class MyJFrame extends JFrame {
 		btnXoa.setFont(new Font("Times New Roman", Font.BOLD, 14));
 		btnXoa.setBounds(558, 166, 89, 23);
 		panel.add(btnXoa);
-		JButton btnImport = new JButton("IMPORT");
-		btnImport.setFont(new Font("Times New Roman", Font.BOLD, 14));
-		btnImport.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				DefaultTableModel tableModel=new DefaultTableModel();
-				tableModel=(DefaultTableModel) table.getModel();
-				List<Student>listST=new ArrayList<>();
-				String file="data\\17HCB.csv";
-				try {
-					listST=readFileCSV(file);
-					tableModel.setRowCount(0);
-					for(Student student : listST) {
-						tableModel.addRow(new Object[] {
-								student.getSTT(),student.getMSSV(),student.getTen(),
-								student.getGioiTinh(), student.getCMND()
-						});
-					}
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				JOptionPane.showMessageDialog(rootPane,"import success.");
-			}
-		});
-		btnImport.setBounds(558, 21, 89, 23);
-		panel.add(btnImport);
 		
 		JButton btnXem = new JButton("Xem DS");
 		btnXem.addActionListener(new ActionListener() {
@@ -256,6 +231,44 @@ public class MyJFrame extends JFrame {
 		btnPhucKhao.setBounds(421, 71, 89, 23);
 		panel.add(btnPhucKhao);
 		
+		JLabel lblNewLabel = new JLabel("File name");
+		lblNewLabel.setForeground(Color.GRAY);
+		lblNewLabel.setBackground(Color.LIGHT_GRAY);
+		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 15));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(319, 19, 66, 28);
+		panel.add(lblNewLabel);
+		
+		txtFileName = new JTextField();
+		txtFileName.setBounds(390, 23, 163, 20);
+		panel.add(txtFileName);
+		txtFileName.setColumns(10);
+		
+		Button btnFileName = new Button("Browse file");
+		btnFileName.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser chooser=new JFileChooser("data");
+				chooser.setMultiSelectionEnabled(false);
+				
+				int action=chooser.showOpenDialog(btnFileName);
+				if(action==JFileChooser.APPROVE_OPTION) {
+					File csvFile=chooser.getSelectedFile();
+					String fileName=csvFile.getAbsolutePath();
+					txtFileName.setText(fileName);
+					try {
+						ImportFileCSV (csvFile,"diem_17hcb_ctt012");
+					} catch (ClassNotFoundException | IOException e1) {
+						// TODO Auto-generated catch block
+						System.out.println("ERRoR1");
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
+		btnFileName.setBackground(Color.GRAY);
+		btnFileName.setBounds(558, 22, 75, 20);
+		panel.add(btnFileName);
+		
 		//Create table
 		table = new JTable();
 		table.setModel(new DefaultTableModel(
@@ -269,6 +282,7 @@ public class MyJFrame extends JFrame {
 		table.setBackground(new Color(255, 255, 255));
 		table.setBounds(20, 236, 647, 177);
 		getContentPane().add(table);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 	
 	private void loadData(String table1) {
@@ -297,9 +311,8 @@ public class MyJFrame extends JFrame {
 		}
 		table.setModel(model);
 	}
-	private List<Student> readFileCSV(String CSVFile) throws FileNotFoundException, IOException{
+	private List<Student> readFileCSV(File file) throws FileNotFoundException, IOException{
 		List<Student> listStudent=new ArrayList<Student>();
-		File file = new File(CSVFile);
 		String line=" ";
 		try(BufferedReader br=new BufferedReader(new FileReader(file))){
 			line=br.readLine();
@@ -312,5 +325,18 @@ public class MyJFrame extends JFrame {
 		}
 		return listStudent;
 	}
+	private void ImportFileCSV (File file, String tablePiont) throws FileNotFoundException, IOException, ClassNotFoundException {
+		String line="";
+		try(BufferedReader br=new BufferedReader(new FileReader(file))){
+			line=br.readLine();
+			System.out.println(line);
+			while((line=br.readLine())!=null && !line.isEmpty()) {
+				String fields[]=line.split(",");
+				System.out.println(fields[1]);
+				MyConnect.insertImportPoint(fields[1],fields[2], fields[3], fields[4], fields[5], fields[6],tablePiont);
+			}
+		}
+	}
+	
 }
 

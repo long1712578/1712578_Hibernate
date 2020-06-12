@@ -45,6 +45,7 @@ public class DateJFrame extends JFrame {
 	 */
 	public DateJFrame() {
 		//String MaLop
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 	public DateJFrame(String MaLop) {
 		myconnect.connect();
@@ -152,5 +153,6 @@ public class DateJFrame extends JFrame {
 		lblNewLabel_2_3.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblNewLabel_2_3.setBounds(294, 173, 28, 14);
 		contentPane.add(lblNewLabel_2_3);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 }
