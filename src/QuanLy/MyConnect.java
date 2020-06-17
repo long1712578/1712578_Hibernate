@@ -325,6 +325,40 @@ public static void Update(float gk,float ck, float khac,float tong,String mssv,S
 				}
 			}
 	}
+	public static void updataPassAdmin(String newPass) throws ClassNotFoundException {
+		Connection connection=null;
+		PreparedStatement statement=null;
+		
+		try {
+			Class.forName(className);
+			connection=DriverManager.getConnection(url, user, pass);
+			
+			String sql = "update login_admin set pass=?  where username='giaovu'";
+			statement= (PreparedStatement) connection.prepareCall(sql);
+			statement.setString(1, newPass);
+			statement.execute();
+		}catch (SQLException e) {
+			// TODO: handle exception
+			System.out.println("ERRoR SqL");
+			Logger.getLogger(MyConnect.class.getName()).log(Level.SEVERE, null, e);
+			}finally {
+				if(statement!=null) {
+					try {
+						statement.close();
+					}catch (SQLException e) {
+						// TODO: handle exception
+						Logger.getLogger(MyConnect.class.getName()).log(Level.SEVERE, null, e);
+					}
+				}
+				if(connection!=null) {
+					try {
+						connection.close();
+					}catch(SQLException e) {
+						Logger.getLogger(MyConnect.class.getName()).log(Level.SEVERE, null, e);
+					}
+				}
+			}
+	}
 	public static void updataStatus1(String mssv,String maMon,String cotDiem) throws ClassNotFoundException {
 		Connection connection=null;
 		PreparedStatement statement=null;

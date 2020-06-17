@@ -99,11 +99,11 @@ public class StudentJFrame extends JFrame {
 		txtName.setColumns(10);
 		this.dataUser=username;
 		txtName.setText(dataUser);
-		
+		//Doi pass word
 		JButton btnNewButton_1 = new JButton("\u0110\u1ED5i pass");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String input=JOptionPane.showInputDialog(this,"Enter new password!");
+				String input=JOptionPane.showInputDialog("Enter new password!");
 				if(input!=null) {
 					try {
 						MyConnect.updataPass(dataUser, input);

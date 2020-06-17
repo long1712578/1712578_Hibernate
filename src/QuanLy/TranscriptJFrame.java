@@ -1,6 +1,5 @@
 package QuanLy;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -9,6 +8,12 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.data.general.PieDataset;
 
 import java.awt.Color;
 import javax.swing.JComboBox;
@@ -34,6 +39,9 @@ public class TranscriptJFrame extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private static  int sumDau;
+	private static int sumRot;
+	private static int sum;
 	private JPanel contentPane;
 	private JTable table;
 	private JTextField txtGK;
@@ -117,6 +125,26 @@ public class TranscriptJFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String table1=comboBox.getSelectedItem().toString();
 				loadData(table1);
+				JButton btnBieuDo = new JButton("Bi\u1EC3u \u0110\u1ED3 TK");
+				btnBieuDo.setFont(new Font("Times New Roman", Font.BOLD, 14));
+				btnBieuDo.setBounds(568, 25, 113, 34);
+				panel.add(btnBieuDo);
+				btnBieuDo.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						// TODO Auto-generated method stub
+						JFreeChart pieChart = createChart(createDataset());
+				        ChartPanel chartPanel = new ChartPanel(pieChart);
+				        JFrame frame = new JFrame();
+				        frame.add(chartPanel);
+				        frame.setTitle("Biểu đồ JFreeChart trong Java Swing");
+				        frame.setSize(600, 400);
+				        frame.setLocationRelativeTo(null);
+				        frame.setResizable(false);
+				        frame.setVisible(true);
+					}
+				});
 				table.addMouseListener(new MouseListener() {
 					
 					@Override
@@ -210,6 +238,7 @@ public class TranscriptJFrame extends JFrame {
 		panel.add(txtDiemTong);
 		
 		
+		
 		table = new JTable();
 		table.setBounds(10, 285, 702, 122);
 		contentPane.add(table);
@@ -223,16 +252,29 @@ public class TranscriptJFrame extends JFrame {
 		try {
 			ResultSetMetaData rsMD=rs.getMetaData();
 			int colNumber=rsMD.getColumnCount();
-			String[] arr=new String[colNumber];
+			String[] arr=new String[colNumber+1];
 			for(int i=0; i<colNumber;i++) {
 				arr[i]=rsMD.getColumnName(i+1);
 			}
+			arr[colNumber]="Ket qua";
 			
 			model.setColumnIdentifiers(arr);
-			
+			sum=0;
+			sumDau=0;
+			sumRot=0;
 			while(rs.next()) {
 				for(int i=0;i<colNumber;i++) {
 					arr[i]=rs.getString(i+1);
+					if(i==colNumber-1) {
+						sum+=1;
+						if(Float.valueOf(arr[i])>=5) {
+							arr[i+1]="Dau";
+							sumDau+=1;
+						}else {
+							arr[i+1]="Rot";
+							sumRot+=1;
+						}
+					}
 				}
 				model.addRow(arr);
 			}
@@ -242,4 +284,18 @@ public class TranscriptJFrame extends JFrame {
 		}
 		table.setModel(model);
 	}
+	@SuppressWarnings("deprecation")
+	private static PieDataset createDataset() {
+        DefaultPieDataset dataset = new DefaultPieDataset();
+        dataset.setValue("Nhóm đậu",  new Double(sumDau*100/sum));
+        dataset.setValue("Nhóm rớt",  new Double(sumRot*100/sum));
+        return dataset;
+    }
+	private static JFreeChart createChart(PieDataset dataset) {
+        JFreeChart chart = ChartFactory.createPieChart(
+                "THÔNG KÊ PHẦN TRĂM ĐẬU RỚT CỦA SINH VIÊN", dataset, true, true, true);
+        return chart;
+    }
+
+	
 }

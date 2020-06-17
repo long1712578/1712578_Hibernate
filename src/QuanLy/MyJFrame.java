@@ -213,7 +213,17 @@ public class MyJFrame extends JFrame {
 		JButton btnNewButton = new JButton("\u0110\u1ED5i pass");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				String input=JOptionPane.showInputDialog("Enter new password!");
+				if(input!=null) {
+					try {
+						MyConnect.updataPassAdmin(input);
+					} catch (ClassNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}else {
+					
+				}
 			}
 		});
 		btnNewButton.setFont(new Font("Times New Roman", Font.ITALIC, 11));
@@ -255,12 +265,38 @@ public class MyJFrame extends JFrame {
 					File csvFile=chooser.getSelectedFile();
 					String fileName=csvFile.getAbsolutePath();
 					txtFileName.setText(fileName);
-					try {
-						ImportFileCSV (csvFile,"diem_17hcb_ctt012");
-					} catch (ClassNotFoundException | IOException e1) {
-						// TODO Auto-generated catch block
-						System.out.println("ERRoR1");
-						e1.printStackTrace();
+					//import diem_17hcb_ctt012
+					if(fileName.contains("diem_17hcb_ctt012")) {
+						try {
+							ImportFileCSVPoint (csvFile,"diem_17hcb_ctt012");
+						} catch (ClassNotFoundException | IOException e1) {
+							// TODO Auto-generated catch block
+							System.out.println("ERRoR1");
+							e1.printStackTrace();
+						}
+						//import diem_18hcb_ctt002
+					}else if(fileName.contains("diem_18hcb_ctt002")) {
+						try {
+							ImportFileCSVPoint (csvFile,"diem_18hcb_ctt002");
+						} catch (ClassNotFoundException | IOException e1) {
+							// TODO Auto-generated catch block
+							System.out.println("ERRoR1");
+							e1.printStackTrace();
+						}
+					}else if(fileName.contains("17HCB")) {
+						try {
+							ImportFileCSVClass(csvFile, "17hcb");
+						} catch (ClassNotFoundException | IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					}else if(fileName.contains("18HCB")) {
+						try {
+							ImportFileCSVClass(csvFile, "18hcb");
+						} catch (ClassNotFoundException | IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 					}
 				}
 			}
@@ -325,18 +361,29 @@ public class MyJFrame extends JFrame {
 		}
 		return listStudent;
 	}
-	private void ImportFileCSV (File file, String tablePiont) throws FileNotFoundException, IOException, ClassNotFoundException {
+	private void ImportFileCSVPoint (File file, String tablePiont) throws FileNotFoundException, IOException, ClassNotFoundException {
 		String line="";
 		try(BufferedReader br=new BufferedReader(new FileReader(file))){
 			line=br.readLine();
 			System.out.println(line);
 			while((line=br.readLine())!=null && !line.isEmpty()) {
 				String fields[]=line.split(",");
-				System.out.println(fields[1]);
 				MyConnect.insertImportPoint(fields[1],fields[2], fields[3], fields[4], fields[5], fields[6],tablePiont);
 			}
 		}
 	}
 	
+	private void ImportFileCSVClass (File file, String tableClass) throws FileNotFoundException, IOException, ClassNotFoundException {
+		String line="";
+		try(BufferedReader br=new BufferedReader(new FileReader(file))){
+			line=br.readLine();
+			System.out.println(line);
+			while((line=br.readLine())!=null && !line.isEmpty()) {
+				String fields[]=line.split(",");
+				Student st=new Student(Integer.parseInt(fields[0]),fields[1],fields[2],fields[3],fields[4]);
+				MyConnect.insert(st, tableClass);
+			}
+		}
+	}
 }
 
