@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 19, 2020, 2:16:51 AM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="QuanLy.NgayPhuckhao" table="ngay_phuckhao" catalog="quanlyhs">
+        <composite-id name="id" class="QuanLy.NgayPhuckhaoId">
+            <key-property name="maMon" type="string">
+                <column name="MaMon" length="100" />
+            </key-property>
+            <key-property name="ngayBd" type="string">
+                <column name="NgayBD" length="100" />
+            </key-property>
+            <key-property name="ngayKt" type="string">
+                <column name="NgayKT" length="100" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

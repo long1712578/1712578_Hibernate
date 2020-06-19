@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 19, 2020, 2:16:51 AM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="QuanLy.LoginAdmin" table="login_admin" catalog="quanlyhs">
+        <composite-id name="id" class="QuanLy.LoginAdminId">
+            <key-property name="username" type="string">
+                <column name="username" />
+            </key-property>
+            <key-property name="pass" type="string">
+                <column name="pass" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

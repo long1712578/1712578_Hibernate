@@ -1,6 +1,6 @@
-STT,MSSV,Ten,Diem GK,Diem CK,Diem Khac,Diem Tong
-1,1842001,Ly Van F,7,7,7,7
-2,1842002,Chieu Van G,3,3,5,4
-3,1842003,Tran Thi H,9,10,9,9.5
-4,1842004,Mac Van I,8,8,7,7.5
-5,1842005,Van Thi J,10,8,6,8
+STT,MSSV,Ten,Diem GK,Diem CK,Diem Khac,Diem Tong,MaMon
+1,1842001,Ly Van F,7,7,7,7,CTT002
+2,1842002,Chieu Van G,3,3,5,4,CTT002
+3,1842003,Tran Thi H,9,10,9,9.5,CTT002
+4,1842004,Mac Van I,8,8,7,7.5,CTT002
+5,1842005,Van Thi J,10,8,6,8,CTT002

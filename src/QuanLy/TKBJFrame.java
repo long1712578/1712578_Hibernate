@@ -40,6 +40,7 @@ public class TKBJFrame extends JFrame {
 	private JTextField txtHoTen;
 	private JTextField txtGioiTinh;
 	private JTextField txtCMND;
+	private JTextField txtSTT;
 	private JTable tableTKB;
 	MyConnect myconnect=new MyConnect();
 
@@ -78,6 +79,12 @@ public class TKBJFrame extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
+		JLabel lblSTT = new JLabel("STT");
+		lblSTT.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSTT.setFont(new Font("Times New Roman", Font.BOLD, 12));
+		lblSTT.setBounds(10, 40, 76, 38);
+		panel.add(lblSTT);
+		
 		JLabel lblNewLabel = new JLabel("MSSV");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 12));
@@ -101,6 +108,11 @@ public class TKBJFrame extends JFrame {
 		lblHTn.setFont(new Font("Times New Roman", Font.BOLD, 12));
 		lblHTn.setBounds(10, 116, 76, 38);
 		panel.add(lblHTn);
+		
+		txtSTT = new JTextField();
+		txtSTT.setBounds(96, 40, 263, 20);
+		panel.add(txtSTT);
+		txtSTT.setColumns(10);
 		
 		txtMSSV = new JTextField();
 		txtMSSV.setBounds(96, 87, 263, 20);
@@ -132,6 +144,7 @@ public class TKBJFrame extends JFrame {
 		btnThem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String table1=comboBox.getSelectedItem().toString();
+				String stt=txtSTT.getText();
 				String MSSV=txtMSSV.getText();
 				String Ten=txtHoTen.getText();
 				String GioiTinh=txtGioiTinh.getText();
@@ -139,14 +152,26 @@ public class TKBJFrame extends JFrame {
 				//Kiem tra MSSV có trong danh sach chua hoac MSSV này có ton tại chưa
 				try {
 					if(checkStudent(MSSV,table1)==0) {
-						Student student=new Student(MSSV,Ten,GioiTinh,CMND);
-						try {
-							MyConnect.insert(student, table1);
-							loadData(table1);
-						} catch (ClassNotFoundException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
+						if(table1.contains("17hcb")) {
+							Student student=new Student(Integer.valueOf(stt),MSSV,Ten,GioiTinh,CMND,"17HCB");
+							try {
+								MyConnect.insertSubject(student, table1);
+								loadData(table1);
+							} catch (ClassNotFoundException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+						}else {
+							Student student=new Student(Integer.valueOf(stt),MSSV,Ten,GioiTinh,CMND,"18HCB");
+							try {
+								MyConnect.insertSubject(student, table1);
+								loadData(table1);
+							} catch (ClassNotFoundException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
 						}
+						
 					}
 					else if(checkStudent(MSSV,table1)==1) {
 						JOptionPane.showMessageDialog(rootPane,"MSSV da ton tai.");
@@ -296,7 +321,13 @@ public class TKBJFrame extends JFrame {
 			}
 			
 			model.setColumnIdentifiers(arr);
-			
+			if( table1.equals("tkb_17hcb")|| table1.equals("tkb_18hcb")){
+				String[]title= {"STT","MaMon","Ten mon","Phong hoc","Ma Lop"};
+				model.addRow(title);
+			}else {
+				String[]title= {"STT","MSSV","Ten","Gioi Tinh","CMND"};
+				model.addRow(title);
+			}
 			while(rs.next()) {
 				for(int i=0;i<colNumber;i++) {
 					arr[i]=rs.getString(i+1);
@@ -309,9 +340,9 @@ public class TKBJFrame extends JFrame {
 		tableTKB.setModel(model);
 	}
 	private int checkStudent(String mssv,String table) throws NumberFormatException, SQLException {
-		//Kiem tra mssv nay co trong lop hoc 17hcb khong
+		//Kiem tra mssv nay co trong lop hoc lop17hcb khong
 		//Neu khong tra ve 2
-			String table1="17hcb";
+			String table1="lop17hcb";
 			ResultSet rs1=myconnect.getData(table1);
 			while(rs1.next()) {
 				if(Integer.parseInt(rs1.getString(2))==Integer.parseInt(mssv)) {
@@ -331,7 +362,7 @@ public class TKBJFrame extends JFrame {
 				}
 			}
 		
-			String table2="18hcb";
+			String table2="lop18hcb";
 			ResultSet rs2=myconnect.getData(table2);
 			while(rs2.next()) {
 				if(Integer.parseInt(rs2.getString(2))==Integer.parseInt(mssv)) {

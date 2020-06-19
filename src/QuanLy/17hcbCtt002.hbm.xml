@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 19, 2020, 1:40:24 PM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="QuanLy.17hcbCtt002" table="17hcb_ctt002" catalog="quanlyhs">
+        <id name="stt" type="java.lang.Integer">
+            <column name="STT" />
+            <generator class="identity" />
+        </id>
+        <property name="mssv" type="string">
+            <column name="MSSV" length="100" not-null="true" />
+        </property>
+        <property name="hoTen" type="string">
+            <column name="HoTen" not-null="true" />
+        </property>
+        <property name="gioiTinh" type="string">
+            <column name="GioiTinh" length="100" not-null="true" />
+        </property>
+        <property name="cmnd" type="string">
+            <column name="CMND" length="100" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

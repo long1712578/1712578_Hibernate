@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 19, 2020, 2:16:51 AM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="QuanLy.Diem18hcbCtt001" table="diem_18hcb_ctt001" catalog="quanlyhs">
+        <id name="stt" type="int">
+            <column name="STT" />
+            <generator class="assigned" />
+        </id>
+        <property name="mssv" type="string">
+            <column name="MSSV" length="100" not-null="true" />
+        </property>
+        <property name="hoTen" type="string">
+            <column name="HoTen" not-null="true" />
+        </property>
+        <property name="diemGk" type="float">
+            <column name="DiemGK" precision="12" scale="0" not-null="true" />
+        </property>
+        <property name="diemCk" type="float">
+            <column name="DiemCK" precision="12" scale="0" not-null="true" />
+        </property>
+        <property name="diemKhac" type="float">
+            <column name="DiemKhac" precision="12" scale="0" not-null="true" />
+        </property>
+        <property name="diemTong" type="float">
+            <column name="DiemTong" precision="12" scale="0" not-null="true" />
+        </property>
+        <property name="maMon" type="string">
+            <column name="MaMon" length="100" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

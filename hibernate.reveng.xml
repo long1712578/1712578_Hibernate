@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.org/dtd/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+
+	<table-filter match-catalog="quanlyhs"
+		match-name="diem_17hcb_ctt011" />
+	<table-filter match-catalog="quanlyhs"
+		match-name="diem_17hcb_ctt012" />
+	<table-filter match-catalog="quanlyhs"
+		match-name="diem_18hcb_ctt001" />
+	<table-filter match-catalog="quanlyhs"
+		match-name="diem_18hcb_ctt002" />
+	<table-filter match-catalog="quanlyhs" match-name="login_admin" />
+	<table-filter match-catalog="quanlyhs" match-name="login_student" />
+	<table-filter match-catalog="quanlyhs" match-name="lop17hcb" />
+	<table-filter match-catalog="quanlyhs" match-name="lop18hcb" />
+	<table-filter match-catalog="quanlyhs" match-name="ngay_phuckhao" />
+	<table-filter match-catalog="quanlyhs" match-name="tbk_17hcb" />
+	<table-filter match-catalog="quanlyhs"
+		match-name="thongtin_phuckhao" />
+	<table-filter match-catalog="quanlyhs" match-name="18hcb_ctt002"/>
+  	<table-filter match-catalog="quanlyhs" match-name="17hcb_ctt011"/>
+  	<table-filter match-catalog="quanlyhs" match-name="17hcb_ctt012"/>
+  	<table-filter match-catalog="quanlyhs" match-name="18hcb_ctt001"/>
+</hibernate-reverse-engineering>

@@ -251,7 +251,7 @@ public class TranscriptJFrame extends JFrame {
 		ResultSet rs=myconnect.getData(table1);
 		try {
 			ResultSetMetaData rsMD=rs.getMetaData();
-			int colNumber=rsMD.getColumnCount();
+			int colNumber=rsMD.getColumnCount()-1;
 			String[] arr=new String[colNumber+1];
 			for(int i=0; i<colNumber;i++) {
 				arr[i]=rsMD.getColumnName(i+1);
@@ -262,6 +262,8 @@ public class TranscriptJFrame extends JFrame {
 			sum=0;
 			sumDau=0;
 			sumRot=0;
+			String[]title= {"STT","MaMon","Ten Mon","Diem GK","Diem CK","Diem khac","Diem tong","Ket qua"};
+			model.addRow(title);
 			while(rs.next()) {
 				for(int i=0;i<colNumber;i++) {
 					arr[i]=rs.getString(i+1);

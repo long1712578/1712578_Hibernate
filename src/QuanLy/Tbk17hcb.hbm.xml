@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 19, 2020, 2:16:51 AM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="QuanLy.Tbk17hcb" table="tbk_17hcb" catalog="quanlyhs">
+        <id name="maMon" type="string">
+            <column name="MaMon" length="100" />
+            <generator class="assigned" />
+        </id>
+        <property name="stt" type="int">
+            <column name="STT" not-null="true" />
+        </property>
+        <property name="tenMon" type="string">
+            <column name="TenMon" not-null="true" />
+        </property>
+        <property name="phongHoc" type="string">
+            <column name="PhongHoc" length="100" not-null="true" />
+        </property>
+        <property name="maLop" type="string">
+            <column name="MaLop" length="100" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

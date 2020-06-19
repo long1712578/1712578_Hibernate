@@ -1,6 +1,6 @@
-STT,MSSV,Ho Ten,Diem GK,DiemCK,DiemKhac,Diem Tong
-1,1742001,Nguyen Van A,5,5,5,5
-2,1742002,Tran Van B,7,7,8,7
-3,1742003,Huynh Thi C,9,10,9,9.5
-4,1742004,Mai Van D,3,5,6,4
-5,1742005,Ho Thi E,7,8,6,7
+STT,MSSV,Ho Ten,Diem GK,DiemCK,DiemKhac,Diem Tong,MaMon
+1,1742001,Nguyen Van A,5,5,5,5,CTT012
+2,1742002,Tran Van B,7,7,8,7,CTT012
+3,1742003,Huynh Thi C,9,10,9,9.5,CTT012
+4,1742004,Mai Van D,3,5,6,4,CTT012
+5,1742005,Ho Thi E,7,8,6,7,CTT012

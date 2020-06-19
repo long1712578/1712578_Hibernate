@@ -117,11 +117,12 @@ public class RecheckJFrame extends JFrame {
 				Float diem=Float.parseFloat(txtDiem.getText());
 				String liDo=txtLiDo.getText();
 				//Lay ten sinhvien
-				ResultSet rs=myconnect.getData("17hcb");
+				ResultSet rs=myconnect.getData("lop17hcb");
 				try {
 					while(rs.next()) {
 						//System.out.println(rs.getString("MSSV"));
 						if(rs.getString("MSSV").equals(mssv)) {
+							//System.out.println(rs.getString("MSSV"));
 							MyConnect.insertInformation(mssv, rs.getString("HoTen"), maMon, cotDiem, diem, liDo);
 						}
 					}
@@ -133,7 +134,7 @@ public class RecheckJFrame extends JFrame {
 					e1.printStackTrace();
 				}
 				
-				ResultSet rs1=myconnect.getData("18hcb");
+				ResultSet rs1=myconnect.getData("lop18hcb");
 				try {
 					while(rs1.next()) {
 						if(rs1.getString("MSSV").equals(mssv)) {

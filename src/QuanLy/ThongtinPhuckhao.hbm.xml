@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 19, 2020, 2:16:51 AM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="QuanLy.ThongtinPhuckhao" table="thongtin_phuckhao" catalog="quanlyhs">
+        <composite-id name="id" class="QuanLy.ThongtinPhuckhaoId">
+            <key-property name="mssv" type="string">
+                <column name="MSSV" length="100" />
+            </key-property>
+            <key-property name="hoTen" type="string">
+                <column name="HoTen" />
+            </key-property>
+            <key-property name="maMon" type="string">
+                <column name="MaMon" length="100" />
+            </key-property>
+            <key-property name="cotDiem" type="string">
+                <column name="CotDiem" length="100" />
+            </key-property>
+            <key-property name="diemMuon" type="float">
+                <column name="DiemMuon" precision="12" scale="0" />
+            </key-property>
+            <key-property name="liDo" type="string">
+                <column name="LiDo" />
+            </key-property>
+            <key-property name="trangThai" type="int">
+                <column name="TrangThai" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 19, 2020, 2:16:51 AM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="QuanLy.Lop18hcb" table="lop18hcb" catalog="quanlyhs">
+        <composite-id name="id" class="QuanLy.Lop18hcbId">
+            <key-property name="stt" type="int">
+                <column name="STT" />
+            </key-property>
+            <key-property name="mssv" type="string">
+                <column name="MSSV" length="100" />
+            </key-property>
+            <key-property name="hoTen" type="string">
+                <column name="HoTen" />
+            </key-property>
+            <key-property name="gioiTinh" type="string">
+                <column name="GioiTinh" length="100" />
+            </key-property>
+            <key-property name="cmnd" type="string">
+                <column name="CMND" length="100" />
+            </key-property>
+            <key-property name="maLop" type="string">
+                <column name="MaLop" length="100" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

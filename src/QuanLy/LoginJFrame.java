@@ -127,6 +127,7 @@ public class LoginJFrame extends JFrame {
 				try {
 					while(rs1.next()) {
 						if(username.equals(rs1.getString("username")) && pass.equals(rs1.getString("pass"))) {
+							close();
 							MyJFrame myjframe=new MyJFrame();
 							
 							myjframe.setVisible(true);
