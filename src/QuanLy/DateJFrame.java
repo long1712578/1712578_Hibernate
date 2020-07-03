@@ -9,9 +9,12 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.Toolkit;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 
 public class DateJFrame extends JFrame {
@@ -61,7 +64,7 @@ public class DateJFrame extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("T\u1EA1o gi\u1EDBi h\u1EA1n th\u1EDDi gian");
+		JLabel lblNewLabel = new JLabel("T\u1EA1o gi\u1EDBi h\u1EA1n th\u1EDDi gian 1");
 		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 14));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(72, 11, 270, 34);
@@ -86,7 +89,7 @@ public class DateJFrame extends JFrame {
 		txtNam1.setBounds(330, 109, 73, 20);
 		contentPane.add(txtNam1);
 		
-		JLabel lblNewLabel_1_1 = new JLabel("Ng\u00E0y b\u1EAFt \u0111\u1EA7u");
+		JLabel lblNewLabel_1_1 = new JLabel("Ngay kết thúc");
 		lblNewLabel_1_1.setBounds(10, 164, 73, 32);
 		contentPane.add(lblNewLabel_1_1);
 		
@@ -105,16 +108,13 @@ public class DateJFrame extends JFrame {
 		txtNam2.setBounds(330, 170, 73, 20);
 		contentPane.add(txtNam2);
 		
-		JButton btnHuy = new JButton("H\u1EE7y");
-		btnHuy.setFont(new Font("Times New Roman", Font.BOLD, 14));
-		btnHuy.setBounds(103, 227, 89, 23);
-		contentPane.add(btnHuy);
 		
 		JButton btnXacNhan = new JButton("X\u00E1c nh\u1EADn");
 		btnXacNhan.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Date date1=new Date(txtNgay1.getText(),txtThang1.getText(),txtNam1.getText());
 				Date date2=new Date(txtNgay2.getText(),txtThang2.getText(),txtNam2.getText());
+				
 				//insert du lieu vao ngay_phuckhao
 				try {
 					MyConnect.insertDate(MaLop, date1, date2);
@@ -123,6 +123,9 @@ public class DateJFrame extends JFrame {
 					System.out.println("Loi inset sql");
 					e1.printStackTrace();
 				}
+				close();
+				TKBJFrame jfame=new TKBJFrame();
+				jfame.setVisible(true);
 				
 			}
 		});
@@ -154,5 +157,9 @@ public class DateJFrame extends JFrame {
 		lblNewLabel_2_3.setBounds(294, 173, 28, 14);
 		contentPane.add(lblNewLabel_2_3);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	}
+	public void close() {
+		WindowEvent windowEvent= new WindowEvent(this,WindowEvent.WINDOW_CLOSING);
+		Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(windowEvent);
 	}
 }

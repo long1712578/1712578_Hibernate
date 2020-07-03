@@ -42,6 +42,7 @@ public class TKBJFrame extends JFrame {
 	private JTextField txtCMND;
 	private JTextField txtSTT;
 	private JTable tableTKB;
+	int  row=-1;
 	MyConnect myconnect=new MyConnect();
 
 	/**
@@ -224,7 +225,9 @@ public class TKBJFrame extends JFrame {
 				String table1=comboBox.getSelectedItem().toString();
 				loadData(table1);
 				if(table1.equals("tkb_17hcb") || table1.equals("tkb_18hcb")) {
-					
+					btnPhucKhao.setFont(new Font("Times New Roman", Font.BOLD, 11));
+					btnPhucKhao.setBounds(571, 183, 89, 23);
+					panel.add(btnPhucKhao);
 					tableTKB.addMouseListener(new MouseListener() {
 						@Override
 						public void mouseReleased(MouseEvent e) {
@@ -235,25 +238,7 @@ public class TKBJFrame extends JFrame {
 						@Override
 						public void mousePressed(MouseEvent e) {
 							// TODO Auto-generated method stub
-							btnPhucKhao.addActionListener(new ActionListener() {
-								public void actionPerformed(ActionEvent e) {
-									int row=tableTKB.getSelectedRow();
-									if(row<0) {
-										JOptionPane.showMessageDialog(null, "Chua chon doi tuong can xoa",
-												"Error Update",JOptionPane.ERROR_MESSAGE);
-										return;
-									}else {
-										String MaLop=(String)tableTKB.getValueAt(row, 1);
-										DateJFrame jframe=new DateJFrame(MaLop);
-										jframe.setVisible(true);
-									}
-								}
-							});
-							btnPhucKhao.setFont(new Font("Times New Roman", Font.BOLD, 11));
-							btnPhucKhao.setBounds(571, 183, 89, 23);
-							panel.add(btnPhucKhao);
-							
-							
+							row=tableTKB.getSelectedRow();
 						}
 						
 						@Override
@@ -272,6 +257,21 @@ public class TKBJFrame extends JFrame {
 						public void mouseClicked(MouseEvent e) {
 							// TODO Auto-generated method stub
 							
+						}
+					});
+					
+					btnPhucKhao.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							
+							if(row<0) {
+								JOptionPane.showMessageDialog(null, "Chua chon doi tuong can xoa",
+										"Error Update",JOptionPane.ERROR_MESSAGE);
+								return;
+							}else {
+								String MaLop=(String)tableTKB.getValueAt(row, 1);
+								DateJFrame jframe=new DateJFrame(MaLop);
+								jframe.setVisible(true);
+							}
 						}
 					});
 				}
@@ -349,9 +349,9 @@ public class TKBJFrame extends JFrame {
 					//Kiem tra mssv nay co trong bảng thời khóa biểu môn học này chưa,
 					//Neu roi tra ve 1
 					try {
-						ResultSet rs=myconnect.getData(table);
+						ResultSet rs=myconnect.getData(table1);
 						while(rs.next()) {
-							if(Integer.parseInt(rs.getString(2))==Integer.parseInt(mssv)) {
+							if(Integer.parseInt(rs.getString("MSSV"))==Integer.parseInt(mssv)) {
 								return 1;
 							}
 						}
@@ -365,7 +365,7 @@ public class TKBJFrame extends JFrame {
 			String table2="lop18hcb";
 			ResultSet rs2=myconnect.getData(table2);
 			while(rs2.next()) {
-				if(Integer.parseInt(rs2.getString(2))==Integer.parseInt(mssv)) {
+				if(Integer.parseInt(rs2.getString("MSSV"))==Integer.parseInt(mssv)) {
 					//Kiem tra mssv nay co trong bảng thời khóa biểu môn học này chưa,
 					//Neu roi tra ve 1
 					try {

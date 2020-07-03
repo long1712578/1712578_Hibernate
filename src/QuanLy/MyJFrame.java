@@ -58,6 +58,7 @@ public class MyJFrame extends JFrame {
 		getContentPane().setLayout(null);
 		
 		JPanel panel = new JPanel();
+		//panel.setBackground(Color.LIGHT_GRAY);
 		panel.setBorder(new TitledBorder(null, "Nh\u1EADp th\u00F4ng tin sinh vi\u00EAn", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLACK));
 		panel.setBounds(10, 11, 657, 214);
 		getContentPane().add(panel);
@@ -65,32 +66,32 @@ public class MyJFrame extends JFrame {
 		
 		JLabel lblSTT = new JLabel("STT");
 		lblSTT.setFont(new Font("Times New Roman", Font.BOLD, 12));
-		lblSTT.setBounds(20, 53, 66, 14);
+		lblSTT.setBounds(20, 75, 66, 14);
 		panel.add(lblSTT);
 		
 		JLabel lblMSSV = new JLabel("MSSV");
 		lblMSSV.setFont(new Font("Times New Roman", Font.BOLD, 12));
-		lblMSSV.setBounds(20, 85, 66, 14);
+		lblMSSV.setBounds(20, 102, 66, 14);
 		panel.add(lblMSSV);
 		
 		txtSTT = new JTextField();
-		txtSTT.setBounds(96, 48, 259, 20);
+		txtSTT.setBounds(96, 72, 259, 20);
 		panel.add(txtSTT);
 		txtSTT.setColumns(10);
 		
 		txtTen = new JTextField();
-		txtTen.setBounds(96, 113, 259, 20);
+		txtTen.setBounds(96, 130, 259, 20);
 		panel.add(txtTen);
 		txtTen.setColumns(10);
 		
 		txtMSSV = new JTextField();
-		txtMSSV.setBounds(96, 80, 259, 20);
+		txtMSSV.setBounds(96, 99, 259, 20);
 		panel.add(txtMSSV);
 		txtMSSV.setColumns(10);
 		
 		txtGioiTinh = new JTextField();
 		txtGioiTinh.setColumns(10);
-		txtGioiTinh.setBounds(96, 149, 259, 20);
+		txtGioiTinh.setBounds(96, 155, 259, 20);
 		panel.add(txtGioiTinh);
 		
 		txtCMND = new JTextField();
@@ -101,17 +102,17 @@ public class MyJFrame extends JFrame {
 		JComboBox cbClass = new JComboBox();
 		cbClass.setFont(new Font("Times New Roman", Font.BOLD, 12));
 		cbClass.setModel(new DefaultComboBoxModel(new String[] {"17hcb", "18hcb"}));
-		cbClass.setBounds(214, 22, 75, 22);
+		cbClass.setBounds(191, 22, 75, 22);
 		panel.add(cbClass);
 		
 		JLabel lblHoTen = new JLabel("H\u1ECD t\u00EAn");
 		lblHoTen.setFont(new Font("Times New Roman", Font.BOLD, 12));
-		lblHoTen.setBounds(20, 118, 66, 14);
+		lblHoTen.setBounds(20, 133, 66, 14);
 		panel.add(lblHoTen);
 		
 		JLabel lblGioiTinh = new JLabel("Gi\u1EDBi t\u00EDnh");
 		lblGioiTinh.setFont(new Font("Times New Roman", Font.BOLD, 12));
-		lblGioiTinh.setBounds(20, 152, 66, 14);
+		lblGioiTinh.setBounds(20, 158, 66, 14);
 		panel.add(lblGioiTinh);
 		
 		JLabel lblCMND = new JLabel("CMND");
@@ -276,11 +277,12 @@ public class MyJFrame extends JFrame {
 				}
 			}
 		});
-		btnNewButton.setFont(new Font("Times New Roman", Font.ITALIC, 11));
+		btnNewButton.setFont(new Font("Times New Roman", Font.BOLD, 13));
 		btnNewButton.setBounds(20, 22, 89, 23);
 		panel.add(btnNewButton);
 		
 		JButton btnDangXuat = new JButton("\u0110\u0103ng xu\u1EA5t");
+		btnDangXuat.setFont(new Font("Times New Roman", Font.BOLD, 12));
 		btnDangXuat.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				close();
@@ -337,9 +339,26 @@ public class MyJFrame extends JFrame {
 							e1.printStackTrace();
 						}
 						//import diem_18hcb_ctt002
-					}else if(fileName.contains("diem_18hcb_ctt002")) {
+					}else if(fileName.contains("diem_17hcb_ctt011")) {
+						try {
+							ImportFileCSVPoint (csvFile,"diem_17hcb_ctt011");
+						} catch (ClassNotFoundException | IOException e1) {
+							// TODO Auto-generated catch block
+							System.out.println("ERRoR1");
+							e1.printStackTrace();
+						}
+					}
+					else if(fileName.contains("diem_18hcb_ctt002")) {
 						try {
 							ImportFileCSVPoint (csvFile,"diem_18hcb_ctt002");
+						} catch (ClassNotFoundException | IOException e1) {
+							// TODO Auto-generated catch block
+							System.out.println("ERRoR1");
+							e1.printStackTrace();
+						}
+					}else if(fileName.contains("diem_18hcb_ctt001")) {
+						try {
+							ImportFileCSVPoint (csvFile,"diem_18hcb_ctt001");
 						} catch (ClassNotFoundException | IOException e1) {
 							// TODO Auto-generated catch block
 							System.out.println("ERRoR1");
@@ -406,7 +425,7 @@ public class MyJFrame extends JFrame {
 				}
 			}
 		});
-		btnFileName.setBackground(Color.GRAY);
+		btnFileName.setBackground(Color.CYAN);
 		btnFileName.setBounds(558, 22, 75, 20);
 		panel.add(btnFileName);
 		

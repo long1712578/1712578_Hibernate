@@ -178,6 +178,9 @@ public class InformationReCheckJFrame extends JFrame {
 				arr[i]=rsMD.getColumnName(i+1);
 			}
 			model.setColumnIdentifiers(arr);
+			model.setColumnIdentifiers(arr);
+			String[]title= {"MSSV", "HoTen", "MaMon", "CotDiem", "DiemMuon", "LiDo", "TrangThai"};
+			model.addRow(title);
 			while(rs.next()) {
 				for(int i=0;i<colNumber;i++) {
 					arr[i]=rs.getString(i+1);
